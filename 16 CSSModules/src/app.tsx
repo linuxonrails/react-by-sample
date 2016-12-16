@@ -1,8 +1,10 @@
 import * as React from 'react';
+import { Table } from './table';
 import {Color} from './color';
 import {ColorPicker} from './colorpicker';
 import {ColorDisplayer} from './colordisplayer';
-import * as styles from './app.css';
+
+// const styles = require('./app.css');
 
 interface State {
   color : Color;
@@ -21,21 +23,8 @@ export class App extends React.Component<{}, State> {
 
   public render() {
     return (
-      <div className={styles.app}>
-        <ColorDisplayer
-          color={this.state.color}
-        />
-        <span>
-          Color: [
-            red:    {this.state.color.red},
-            green:  {this.state.color.green},
-            blue:   {this.state.color.blue}
-          ]
-        </span>
-        <ColorPicker
-          color={this.state.color}
-          onColorUpdated={this.setColorState.bind(this)}
-        />
+      <div>
+        <Table />
       </div>
     );
   }

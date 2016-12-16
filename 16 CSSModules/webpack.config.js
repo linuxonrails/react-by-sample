@@ -2,8 +2,6 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const WebpackShellPlugin = require('webpack-shell-plugin');
-
 var basePath = __dirname;
 
 module.exports = {
@@ -14,7 +12,7 @@ module.exports = {
 
   entry: [
     './main.tsx',
-    '../node_modules/bootstrap/dist/css/bootstrap.css'
+    // '../node_modules/bootstrap/dist/css/bootstrap.css'
   ],
   output: {
     path: path.join(basePath, 'dist'),
@@ -42,7 +40,7 @@ module.exports = {
         test: /\.css$/,
         loaders: [
           'style?sourceMap',
-          'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5],typed-css-modules'
+          'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]'
         ]
       },
       // Loading glyphicons => https://github.com/gowravshekar/bootstrap-webpack
@@ -66,9 +64,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new WebpackShellPlugin({
-      onBuildStart: ['tcm src -o css_typings'],
-    }),
     // Generate index.html in /dist => https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: 'index.html', // Name of file in ./dist/

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Color } from './color';
-import * as styles from './colordisplayer.css';
 
 interface Props {
   color : Color;
@@ -15,7 +14,7 @@ export const ColorDisplayer = (props : Props) => {
   };
 
   return (
-    <div className={styles.colordisplayer}>
+    <div>
       <div style={divStyle} />
     </div>
   );

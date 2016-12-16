@@ -44,7 +44,7 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
     test: /\.css$/,
     loaders: [
       'style?sourceMap',
-      'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5],typed-css-modules'
+      'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]'
     ]
   }
   ```
@@ -167,9 +167,6 @@ Install [Node.js and npm](https://nodejs.org/en/) (v6.6.0 or newer) if they are 
   npm start
   ```
 
-WIP:
-
-
 - Install [`react-css-modules`](https://github.com/gajus/react-css-modules) with:
 
   ```
@@ -177,4 +174,66 @@ WIP:
   ```
 
   > @types/react-css-modules [has a BUG](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/12844) but its very easy to fix:
-  > replace `export = CSSModules;` with `export default CSSModules;` in node_modules/@types/react-css-modules/index.d.ts
+  > replace in node_modules/@types/react-css-modules/index.d.ts
+  > `export = CSSModules;`
+  > with
+  > `export default CSSModules;`
+
+## Decorators
+
+- We will use [decorators](https://www.typescriptlang.org/docs/handbook/decorators.html).
+Add the next line in _./tsconfig.json_ after the noLib option:
+
+  ```json
+  "experimentalDecorators": true,
+  ```
+
+- Create a new `Table` component and stylesheets file:
+
+  _./src/table.css_
+
+  ```css
+  .table {
+    color: red;
+  }
+  ```
+
+  _./src/table.tsx_
+
+  ```jsx
+  import * as React from 'react';
+  import * as styles from './table.css';
+  import CSSModules from 'react-css-modules';
+
+  @CSSModules(styles)
+  export class Table extends React.Component<{}, {}> {
+    render () {
+      return (
+        <div styleName='foobar'>
+          This should be in red color!
+        </div>
+      );
+    }
+  }
+  ```
+
+  _./src/app.tsx_
+
+  ```jsx
+  // ...
+  import { Table } from './table';
+  // ...
+  public render() {
+    return (
+      <div className={styles.app}>
+        <Table />
+        <ColorDisplayer
+          color={this.state.color}
+        />
+        //...
+  ```
+
+
+
+
+  npm install sass-loader node-sass webpack --save-dev
